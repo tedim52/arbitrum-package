@@ -16,9 +16,7 @@ def launch_l2(
     plan.print("Creating L2 traffic...")
 
     plan.print("Deploying L2 Arbitrum network...")
-    l1_keystore_path = ""
-    sequencer_address = ""
-    poster.launch_poster(plan, l1_keystore_path, sequencer_address, eth_ws_url)
+    poster.launch_poster(plan, eth_ws_url)
 
     plan.print("Funding L2 funnel...")
 

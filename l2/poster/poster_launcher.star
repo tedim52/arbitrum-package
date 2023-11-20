@@ -31,8 +31,8 @@ DEPLOYED_L2_CHAIN_INFO_FILEPATH=CONFIG_DIRPATH + "deployed_chain_info.json"
 def launch_poster(
     plan, 
     geth_ws_endpoint,
-    sequencer_address, # figure out how to get sequencer address
     args={}):
+    sequencer_address = consts.PRE_FUNDED_ACCOUNTS["sequencer"].address
 
     # adjust this so that it's a rendered template (need to parameterize `argv.l2owner` which is the sequencer address)
     l2_chain_config = {

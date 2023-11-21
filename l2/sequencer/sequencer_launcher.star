@@ -1,6 +1,6 @@
 
-HTTP_PORT=8547
-TCP_PORT=9642
+HTTP_PORT_NUM=8547
+TCP_PORT_NUM=9642
 WS_PORT_NUM=8548
 
 # DOCKER COMPOSE CMD
@@ -12,31 +12,31 @@ WS_PORT_NUM=8548
 
 def launch_sequencer(plan, args={}):
     seq_config = ServiceConfig(
-        image="nitro-node-dev-testnode",
+        image="offchainlabs/nitro-node:v2.1.1-e9d8842-dev",
         ports={
-            "http":PortSpec(number=HTTP_PORT, transport_protocol="http"),
-            "ws":PortSpec(number=WS_PORT_NUM, transport_protocol="ws"),
-            "tcp":PortSpec(number=TCP_PORT, transport_protocol="tcp"),
+            "http":PortSpec(number=HTTP_PORT_NUM, transport_protocol="TCP"),
+            "ws":PortSpec(number=WS_PORT_NUM, transport_protocol="TCP"),
+            "tcp":PortSpec(number=TCP_PORT_NUM, transport_protocol="TCP"),
         },
         cmd=[
             "--conf.file",
             "/config/sequencer_config.json", # assuming this comes from the config step before but need ot get this one
             "--node.feed.output.enable",
             "--node.feed.output.port",
-            FEED_OUTPUT_PORT,
+            str(TCP_PORT_NUM),
             "--http.api",
             "net,web3,eth,txpool,debug",
             "--node.seq-coordinator.my-url",
-            "ws://sequencer:{0}".format(PORT_ONE),
+            "ws://sequencer:{0}".format(str(WS_PORT_NUM)),
             "--graphql.enable",
             "--graphql.vhosts",
             "*",
             "--graphql.corsdomain",
-            "*",
-        ]
+            "*"
+        ],
     )
 
-    sequencer_context = plan.add_service("sequencer", seq_config)
+    sequencer_context = plan.add_service(name="sequencer", config=seq_config)
 
     return sequencer_context
     

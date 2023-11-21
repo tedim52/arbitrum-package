@@ -35,16 +35,13 @@ def launch_poster(
     sequencer_address = consts.PRE_FUNDED_ACCOUNTS["sequencer"].address
 
     # adjust this so that it's a rendered template (need to parameterize `argv.l2owner` which is the sequencer address)
-    l2_chain_config = {
-        name="l2_chain_config",
-        src = "../static_files/l2_chain_config.json",
-    }
+    l2_chain_config = plan.upload_files(src="../static-files/l2_chain_config.json", name="l2_config_file")
 
     poster_config = ServiceConfig(
-        image="nitro-node-dev-testnode",
+        image="offchainlabs/nitro-node:v2.1.1-e9d8842-dev",
         ports={
-                "portone": PortSpec(number=8547, transport_protocol="http"),
-                "porttwo": PortSpec(number=8548, transport_protocol="http"),
+                "portone": PortSpec(number=8547, transport_protocol="TCP"),
+                "porttwo": PortSpec(number=8548, transport_protocol="TCP"),
         },
         files={
             L2_CHAIN_CONFIG_FILEPATH: l2_chain_config
@@ -79,7 +76,7 @@ def launch_poster(
         ]
     )
 
-    poster_context = plan.add_service("poster", poster_config)
+    poster_context = plan.add_service(name="poster", config=poster_config)
 
     plan.exec("poster", ExecRecipe(
         command=["jq", "[.[]]", DEPLOYED_CHAIN_INFO_FILEPATH, ">", DEPLOYED_L2_CHAIN_INFO_FILEPATH]

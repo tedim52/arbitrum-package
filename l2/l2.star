@@ -20,16 +20,11 @@ def launch_l2(
 
     plan.print("Funding L2 funnel...")
 
-
-
-
-    # for i in range(0, num_sequencers):
-    plan.print("Initializing redis cache num {0}...".format(i))
+    plan.print("Initializing redis cache num ...")
     redis_context = redis.run(plan)
 
-    # spin up sequencers
-    sequencer = sequencer.launch_sequencer(plan)
+    sequencer_context = sequencer.launch_sequencer(plan)
         
     plan.print("Deploying token bridge...")
-    sequencer_url="http://{0}:{1}".format(sequencer.ip_address, sequencer.ports["http"].number)
+    sequencer_url="http://{0}:{1}".format(sequencer_context.ip_address, sequencer_context.ports["http"].number)
     token_bridge.launch_token_bridge(plan, sequencer_url, eth_rpc_url)

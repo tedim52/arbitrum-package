@@ -22,7 +22,7 @@
         "AllowDebugPrecompiles": true,
         "DataAvailabilityCommittee": false,
         "InitialArbOSVersion": 11,
-        "InitialChainOwner": "argv.l2owner",
+        "InitialChainOwner": "19BPu6iWsbwXTEoQi6pkMgeHc92qBgrEQZ",
         "GenesisBlockNum": 0
     }
 }

@@ -4,7 +4,7 @@ l2 = import_module("./l2/l2.star")
 # - num sequencers num
 # - token bridge bool
 def run(plan, args={}):
-    plan.print("Deploying L1 ethereum network...")
+    # plan.print("Deploying L1 ethereum network...")
     l1_info = l1.launch_l1(plan)
 
     plan.print("Deploying L2 arbitrum network...")

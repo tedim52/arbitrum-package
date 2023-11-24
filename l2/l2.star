@@ -10,6 +10,8 @@ def launch_l2(
     eth_rpc_url,
     eth_ws_url):
     # figure how to fund the sequencer
+
+    # create an l1 keystore??
     # figure out where validator keys that are funded are
     plan.print("Funding validator and sequencer...")
 

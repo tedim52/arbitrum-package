@@ -75,3 +75,7 @@ def launch_poster(
 
     # prob need to download the files into the enclave
     return poster_context
+
+# need to generate a keystore with a wallet for each of the prefunded accounts
+# can prob use eth val tools to do this
+def generate_l1_keystore():

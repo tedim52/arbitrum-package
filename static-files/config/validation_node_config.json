@@ -1,0 +1,19 @@
+{
+    "persistent":{
+       "chain":"local"
+    },
+    "ws":{
+       "addr":""
+    },
+    "http":{
+       "addr":""
+    },
+    "validation":{
+       "api-auth":true,
+       "api-public":false
+    },
+    "auth":{
+       "jwtsecret":"val_jwt.hex",
+       "addr":"0.0.0.0"
+    }
+ }

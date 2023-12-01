@@ -12,7 +12,7 @@ def launch_l2(
     # figure how to fund the sequencer
 
     # create an l1 keystore
-    l1_keystore = plan.upload_files(name="l1_keystore", src="../../static-files/keystore")
+    l1_keystore = plan.upload_files(name="l1_keystore", src="../static-files/keystore")
     
     # figure out where validator keys that are funded are
     plan.print("Funding validator and sequencer...")

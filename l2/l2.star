@@ -11,14 +11,16 @@ def launch_l2(
     eth_ws_url):
     # figure how to fund the sequencer
 
-    # create an l1 keystore??
+    # create an l1 keystore
+    l1_keystore = plan.upload_files(name="l1_keystore", src="../../static-files/keystore")
+    
     # figure out where validator keys that are funded are
     plan.print("Funding validator and sequencer...")
 
     plan.print("Creating L2 traffic...")
 
     plan.print("Deploying L2 Arbitrum network...")
-    poster.launch_poster(plan, eth_ws_url)
+    poster.launch_poster(plan, eth_ws_url, l1_keystore)
 
     plan.print("Funding L2 funnel...")
 

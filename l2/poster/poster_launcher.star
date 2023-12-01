@@ -20,12 +20,14 @@ DEPLOYED_L2_CHAIN_INFO_FILEPATH=CONFIG_DIRPATH + "deployed_chain_info.json"
 def launch_poster(
     plan, 
     geth_ws_endpoint,
+    l1_keystore,
     args={}):
     sequencer_address = consts.PRE_FUNDED_ACCOUNTS["sequencer"].address
 
     # adjust this so that it's a rendered template (need to parameterize `argv.l2owner` which is the sequencer address)
-    l2_chain_config = plan.upload_files(src="../static-files/l2_chain_config.json", name="l2_config_file")
+    l2_chain_config = plan.upload_files(src="../../static-files/config/l2_chain_config.json", name="l2_config_file")
 
+    keystore = plan.upload_files(src="../../static-files/config")
     poster_command = [
             "/usr/local/bin/deploy",
             "--l1conn",
@@ -61,7 +63,8 @@ def launch_poster(
                 "porttwo": PortSpec(number=8548, transport_protocol="TCP"),
         },
         files={
-            L2_CHAIN_CONFIG_FILEPATH: l2_chain_config
+            L2_CHAIN_CONFIG_FILEPATH: l2_chain_config,
+            consts.L1_KEYSTORE_PATH: l1_keystore,
         },
         entrypoint=["sh", "-c"],
         cmd=[poster_command_str]
@@ -77,5 +80,5 @@ def launch_poster(
     return poster_context
 
 # need to generate a keystore with a wallet for each of the prefunded accounts
-# can prob use eth val tools to do this
-def generate_l1_keystore():
+# # can prob use eth val tools to do this
+# def generate_l1_keystore():
